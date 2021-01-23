@@ -55,6 +55,11 @@ func (l *Lexer) NextToken() token.Token {
 	case '+':
 		tok = newToken(token.PLUS, l.ch)
 	default:
+		if isLetter(l.ch) {
+			tok.Literal = l.readIdentifier()
+			tok.Type = token.LookupIdent(tok.Literal)
+			return tok
+		}
 		tok = newToken(token.ILLEGAL, l.ch)
 	}
 
@@ -62,6 +67,18 @@ func (l *Lexer) NextToken() token.Token {
 	return tok
 }
 
+
+func isLetter(c rune) bool {
+	return 'A' <= c && c <= 'Z' || 'a' <= c && c <= 'z' || c == '_'
+}
+
+func (l *Lexer) readIdentifier() string {
+	position := l.position
+	for isLetter(l.ch) {
+		l.readChar()
+	}
+	return string(l.input[position:l.position])
+}
 func newToken(tokenType token.TokenType, ch rune) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
