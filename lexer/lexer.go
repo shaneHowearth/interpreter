@@ -37,6 +37,8 @@ func (l *Lexer) readChar() {
 func (l *Lexer) NextToken() token.Token {
 	var tok token.Token
 
+	l.skipWhitespace()
+
 	switch l.ch {
 	case '=':
 		tok = newToken(token.ASSIGN, l.ch)
@@ -94,6 +96,13 @@ func (l *Lexer) readIdentifier() string {
 	}
 	return string(l.input[position:l.position])
 }
+
+func (l *Lexer) skipWhitespace() {
+	for unicode.IsSpace(l.ch) {
+		l.readChar()
+	}
+}
+
 func newToken(tokenType token.TokenType, ch rune) token.Token {
 	return token.Token{Type: tokenType, Literal: string(ch)}
 }
