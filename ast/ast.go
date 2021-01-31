@@ -1,6 +1,8 @@
 // Package ast -
 package ast
 
+import "github.com/shanehowearth/interpreter/token"
+
 // Node -
 type Node interface {
 	TokenLiteral() string
@@ -33,4 +35,31 @@ func (p *Program) TokenLiteral() string {
 		return p.Statements[0].TokenLiteral()
 	}
 	return ""
+}
+
+// LetStatement -
+type LetStatement struct {
+	Token token.Token // the token.LET token
+	Name  *Identifier
+	Value Expression
+}
+
+func (ls *LetStatement) statementNode() {}
+
+// TokenLiteral -
+func (ls *LetStatement) TokenLiteral() string {
+	return ls.Token.Literal
+}
+
+// Identifier -
+type Identifier struct {
+	Token token.Token // the token.IDENT token
+	Value string
+}
+
+func (i *Identifier) expressionNode() {}
+
+// TokenLiteral -
+func (i *Identifier) TokenLiteral() string {
+	return i.Token.Literal
 }
