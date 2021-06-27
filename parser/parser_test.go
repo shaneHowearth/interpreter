@@ -301,6 +301,11 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
 		"false":            {"false", "false"},
 		"'3 > 5' == false": {"3 > 5 == false", "((3 > 5) == false)"},
 		"'3 < 5' == true":  {"3 < 5 == true", "((3 < 5) == true)"},
+		"grouped 01":       {"1 + (2 + 3) + 4", "((1 + (2 + 3)) + 4)"},
+		"grouped 02":       {"(5 + 5) * 2", "((5 + 5) * 2)"},
+		"grouped 03":       {"2 / (5 + 5)", "(2 / (5 + 5))"},
+		"grouped 04":       {"-(5 + 5)", "(-(5 + 5))"},
+		"grouped 05":       {"!(true == true)", "(!(true == true))"},
 	}
 
 	for name, tt := range tests {
