@@ -11,6 +11,7 @@ type ObjectType string
 const (
 	INTEGER_OBJ = "INTEGER"
 	BOOLEAN_OBJ = "BOOLEAN"
+	NULL_OBJ    = "NULL"
 )
 
 // Object -
@@ -42,3 +43,12 @@ func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
 
 // Inspect -
 func (b *Boolean) Inspect() string { return fmt.Sprintf("%t", b.Value) }
+
+// Null -
+type Null struct{}
+
+// Type -
+func (n *Null) Type() ObjectType { return NULL_OBJ }
+
+// Inspect -
+func (n *Null) Inspect() string { return "null" }
