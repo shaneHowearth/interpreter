@@ -10,6 +10,7 @@ type ObjectType string
 
 const (
 	INTEGER_OBJ = "INTEGER"
+	BOOLEAN_OBJ = "BOOLEAN"
 )
 
 // Object -
@@ -30,3 +31,14 @@ func (i *Integer) Inspect() string { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType {
 	return INTEGER_OBJ
 }
+
+// Boolean -
+type Boolean struct {
+	Value bool
+}
+
+// Type -
+func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
+
+// Inspect -
+func (b *Boolean) Inspect() string { return fmt.Sprintf("%t", b.Value) }
