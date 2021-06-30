@@ -8,6 +8,7 @@ import (
 
 	"github.com/shanehowearth/interpreter/evaluator"
 	"github.com/shanehowearth/interpreter/lexer"
+	"github.com/shanehowearth/interpreter/object"
 	"github.com/shanehowearth/interpreter/parser"
 )
 
@@ -30,6 +31,7 @@ const monkeyFace = `
 // Start -
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
+	env := object.NewEnvironment()
 	for {
 		fmt.Printf(prompt)
 		scanned := scanner.Scan()
@@ -47,7 +49,7 @@ func Start(in io.Reader, out io.Writer) {
 			continue
 		}
 
-		if evaluated := evaluator.Eval(program); evaluated != nil {
+		if evaluated := evaluator.Eval(program, env); evaluated != nil {
 
 			io.WriteString(out, evaluated.Inspect())
 			io.WriteString(out, "\n")
