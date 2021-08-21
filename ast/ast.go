@@ -333,3 +333,17 @@ func (ce *CallExpression) String() string {
 	out.WriteString(")")
 	return out.String()
 }
+
+// StringLiteral -
+type StringLiteral struct {
+	Token token.Token
+	Value string
+}
+
+func (sl *StringLiteral) expressionNode() {}
+
+// TokenLiteral -
+func (sl *StringLiteral) TokenLiteral() string { return sl.Token.Literal }
+
+// String -
+func (sl *StringLiteral) String() string { return sl.Token.Literal }
