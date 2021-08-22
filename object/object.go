@@ -22,6 +22,7 @@ const (
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	ERROR_OBJ        = "ERROR"
 	FUNCTION_OBJ     = "FUNCTION"
+	STRING_OBJ       = "STRING"
 )
 
 // Object -
@@ -111,3 +112,14 @@ func (f *Function) Inspect() string {
 	out.WriteString("\n}")
 	return out.String()
 }
+
+// String -
+type String struct {
+	Value string
+}
+
+// Type -
+func (s *String) Type() ObjectType { return STRING_OBJ }
+
+// Inspect -
+func (s *String) Inspect() string { return s.Value }
